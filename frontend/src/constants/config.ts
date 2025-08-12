@@ -1,0 +1,1 @@
+export const EXAMPLE_DATA_COUNT_PER_PAGE = 10
