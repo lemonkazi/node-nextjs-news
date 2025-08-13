@@ -3,10 +3,10 @@ import { BlogRepo } from '@/repositories/interface/Top/BlogRepo'
 import { DEFAULT_IMAGE } from '@/utils/const'
 
 export class HttpBlogRepo implements BlogRepo {
-  async getBlogs(): Promise<any> {
+  async getBlogs(page: number = 1, limit: number = 5): Promise<any> {
     try {
       const res = await fetch(
-        `${blogPageDomain}articles`,
+        `${blogPageDomain}articles?page=${page}&limit=${limit}`,
         {
           method: 'GET',
           headers: {
@@ -23,7 +23,7 @@ export class HttpBlogRepo implements BlogRepo {
 
       let posts = await res.json()
 
-      return posts.data
+      return posts
     } catch (e) {
       return []
     }

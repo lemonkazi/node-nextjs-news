@@ -3,9 +3,14 @@
 import { blogTest } from '@/utils/blog-const'
 import { BlogService } from '@/services/Top/blog'
 import { DEFAULT_IMAGE } from '@/utils/const'
+import { useState } from 'react'
 
 // Packages
-import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  useQuery,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 import BlogSectionComponent from './Blog/BlogSection'
 
@@ -41,13 +46,13 @@ const processPostsWithImages = async (posts: any[]): Promise<any[]> => {
   }
 
   const processedPosts: any[] = []
-  
+
   for (const post of posts) {
     const image = await requestImage(post._links)
     const processedPost = {
       ...post,
       isLoading: false,
-      image: image
+      image: image,
     }
     processedPosts.push(processedPost)
   }
@@ -55,26 +60,34 @@ const processPostsWithImages = async (posts: any[]): Promise<any[]> => {
   return processedPosts
 }
 
-const fetchBlogs = async () => {
+const fetchBlogs = async (page: number, limit: number = 5) => {
   try {
     // const posts = isLocalUrl.includes('localhost')
     //   ? blogTest
     //   : await blogService.getBlogs()
 
-    const response = await blogService.getBlogs()
+    const response = await blogService.getBlogs(page, limit)
     const posts = response.data || []
 
     console.log('Extracted posts data:', posts)
 
-    if (!posts || posts.length === 0) {
+    if (!posts.data || posts.data.length === 0) {
       return []
+    }
+    // add blog posts and pagination array seperately
+    const appendPosts = {
+      data: posts.data.map((item: any) => ({
+        ...item,
+        isLoading: true, // Add loading state initially
+      })),
+      pagination: posts.pagination,
     }
 
     // Add loading state initially
-    const appendPosts = posts.map((item: any) => ({
-      ...item,
-      isLoading: true,
-    }))
+    // const appendSinglePosts = posts.data.map((item: any) => ({
+    //   ...item,
+    //   isLoading: true,
+    // }))
 
     // Process images
     //const processedPosts = await processPostsWithImages(appendPosts)
@@ -87,13 +100,15 @@ const fetchBlogs = async () => {
 
 // Main Blog Component
 const BlogContent = () => {
+  const [page, setPage] = useState(1)
   const {
     data: blogs,
     isLoading,
     error,
+    isFetching,
   } = useQuery({
-    queryKey: ['topBlogs'],
-    queryFn: fetchBlogs,
+    queryKey: ['topBlogs', page],
+    queryFn: () => fetchBlogs(page),
     gcTime: Infinity,
     staleTime: Infinity,
     refetchOnReconnect: false,
@@ -110,6 +125,29 @@ const BlogContent = () => {
       {/* <Banner /> */}
       <div className='text-dark font-yugothic mx-auto my-16 max-h-[800px] max-w-[1080px] bg-transparent px-0 py-16 max-[767px]:my-8 max-[767px]:py-8 lg:my-2.5 lg:py-20 dark:text-white'>
         <BlogSectionComponent blogs={blogs || []} />
+        <div className='mt-8 flex items-center justify-between'>
+          <button
+            onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+            disabled={isFetching || page === 1}
+            className='rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400'
+          >
+            Previous
+          </button>
+          <span className='text-gray-600 dark:text-gray-300'>
+            Page {page} of{' '}
+            {Math.ceil(blogs?.pagination?.total / blogs?.pagination?.limit)}
+          </span>
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            disabled={
+              isFetching ||
+              page * blogs?.pagination?.limit >= blogs?.pagination?.total
+            }
+            className='rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400'
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   )

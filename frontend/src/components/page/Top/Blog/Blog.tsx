@@ -90,42 +90,42 @@ const Blog = (props: any) => {
 
   return (
     <>
-      
-        {(blogs ? blogs.length > 0 : false) &&
-          blogs.map((blog: any, index: number) => (
-              <a
-                href={blog.link}
-                id={`ga4_click4_${index + 1}`}
-                className='!inline-block text-xs no-underline sm:w-[340px]'
-              >
-                <div className='relative h-[188px] w-full overflow-hidden lg:h-[200px] lg:w-[340px]'>
-                  {/* Do not use Image component on this one. blog.image is url coming from wordpress. If you use Image component it will ask an authorization always and it always fail */}
-                  {blog.isLoading ? (
-                      <p>{blog.title}</p>
-                      // <img
-                      //   src='/images/top/blog/4.jpg'
-                      //   className='absolute h-[188px] w-full rounded-tl-[15px] rounded-tr-[15px] object-cover object-top lg:h-[200px] lg:w-[340px]'
-                      //   alt={blog.title}
-                      // />
-                      //   <Skeleton className='h-[200px] w-[340px]' />
-                  ) : (
-                    <img
-                      src={blog.image}
-                      className='absolute h-[188px] w-full rounded-tl-[15px] rounded-tr-[15px] object-cover object-top lg:h-[200px] lg:w-[340px]'
-                      alt={blog.title.rendered}
-                    />
-                  )}
-                </div>
-                <div className='mx-0 my-auto mt-0 h-[129px] w-80 p-0 pl-5 pt-5 text-left font-normal lg:w-[340px]'>
-                  <h4 className='mb-5 text-xs font-medium not-italic normal-nums leading-[18px] tracking-normal'>
-                    {/* {formatDate(blog.date, 'horizontal')} */}
-                  </h4>
-                  <p className='py-auto mx-0 mb-[38px] w-[280px] break-words text-base font-bold not-italic normal-nums tracking-normal md:w-[300px]'>
-                    {blog.title.rendered}
-                  </p>
-                </div>
-              </a>
-          ))}
+      {(blogs ? blogs.length > 0 : false) &&
+        blogs.map((blog: any, index: number) => (
+          <a
+            key={index}
+            href={blog.link}
+            id={`ga4_click4_${index + 1}`}
+            className='!inline-block text-xs no-underline sm:w-[340px]'
+          >
+            <div className='relative h-[188px] w-full overflow-hidden lg:h-[200px] lg:w-[340px]'>
+              {/* Do not use Image component on this one. blog.image is url coming from wordpress. If you use Image component it will ask an authorization always and it always fail */}
+              {blog.isLoading ? (
+                <p>{blog.title}</p>
+              ) : (
+                // <img
+                //   src='/images/top/blog/4.jpg'
+                //   className='absolute h-[188px] w-full rounded-tl-[15px] rounded-tr-[15px] object-cover object-top lg:h-[200px] lg:w-[340px]'
+                //   alt={blog.title}
+                // />
+                //   <Skeleton className='h-[200px] w-[340px]' />
+                <img
+                  src={blog.image}
+                  className='absolute h-[188px] w-full rounded-tl-[15px] rounded-tr-[15px] object-cover object-top lg:h-[200px] lg:w-[340px]'
+                  alt={blog.title.rendered}
+                />
+              )}
+            </div>
+            <div className='mx-0 my-auto mt-0 h-[129px] w-80 p-0 pl-5 pt-5 text-left font-normal lg:w-[340px]'>
+              <h4 className='mb-5 text-xs font-medium not-italic normal-nums leading-[18px] tracking-normal'>
+                {/* {formatDate(blog.date, 'horizontal')} */}
+              </h4>
+              <p className='py-auto mx-0 mb-[38px] w-[280px] break-words text-base font-bold not-italic normal-nums tracking-normal md:w-[300px]'>
+                {blog.title.rendered}
+              </p>
+            </div>
+          </a>
+        ))}
     </>
   )
 }

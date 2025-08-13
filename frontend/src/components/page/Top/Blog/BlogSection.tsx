@@ -20,24 +20,28 @@ import btnForwardArrowIcon from '/public/images/blue-forward-arrow.svg'
 const blogPage = process.env.NEXT_PUBLIC_BLOG_PAGE ?? '/'
 
 const BlogSection = (props: any) => {
-    const { blogs } = props
-    // const locale = getLocale()
-    // const lang = detectLanguage(locale)
+  const { blogs } = props
+  // i am getting blogs.data from props i want to pass it to Blog component
+  const blogsData = blogs.data || []
 
-    return (
-        <React.Fragment>
-            <div className="text-center">
-                <h1 className='text-dark letter font-roboto text-3xl font-bold not-italic tracking-[3.2px]'>
-                BLOG
-                </h1>
-            </div>
-            <div
-                className={`${css.slider} md:px-auto px-auto relative mx-auto mb-[52px] mt-9 max-w-[1080px] py-0 pl-4 md:mb-10 lg:pl-0`}
-            >
-                <Blog blogs={blogs} />
-            </div>
-        </React.Fragment>
-    )
+  // const locale = getLocale()
+
+  // const lang = detectLanguage(locale)
+
+  return (
+    <React.Fragment>
+      <div className='text-center'>
+        <h1 className='text-dark letter font-roboto text-3xl font-bold not-italic tracking-[3.2px]'>
+          BLOG
+        </h1>
+      </div>
+      <div
+        className={`${css.slider} md:px-auto px-auto relative mx-auto mb-[52px] mt-9 max-w-[1080px] py-0 pl-4 md:mb-10 lg:pl-0`}
+      >
+        <Blog blogs={blogsData} />
+      </div>
+    </React.Fragment>
+  )
 }
 
 export default BlogSection
