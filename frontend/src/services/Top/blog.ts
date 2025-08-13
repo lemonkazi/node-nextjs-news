@@ -5,7 +5,7 @@ import { BlogRepo } from '@/repositories/interface/Top/BlogRepo'
 const blogRepo: BlogRepo = new HttpBlogRepo()
 
 export class BlogService {
-  getBlogs = async (): Promise<any[]> => {
+  getBlogs = async (): Promise<any> => {
     return await blogRepo.getBlogs()
   }
   getBlogImage = async (url: string): Promise<string> => {

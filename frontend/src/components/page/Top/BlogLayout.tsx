@@ -60,10 +60,11 @@ const fetchBlogs = async () => {
     // const posts = isLocalUrl.includes('localhost')
     //   ? blogTest
     //   : await blogService.getBlogs()
-    
+
     const response = await blogService.getBlogs()
-    const posts = response.data
-    console.log("Extracted posts data:", posts)
+    const posts = response.data || []
+
+    console.log('Extracted posts data:', posts)
 
     if (!posts || posts.length === 0) {
       return []
@@ -78,7 +79,6 @@ const fetchBlogs = async () => {
     // Process images
     //const processedPosts = await processPostsWithImages(appendPosts)
     return appendPosts
-    
   } catch (error) {
     console.error('Error fetching blogs:', error)
     throw error
@@ -87,7 +87,11 @@ const fetchBlogs = async () => {
 
 // Main Blog Component
 const BlogContent = () => {
-  const { data: blogs, isLoading, error } = useQuery({
+  const {
+    data: blogs,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['topBlogs'],
     queryFn: fetchBlogs,
     gcTime: Infinity,
@@ -100,8 +104,6 @@ const BlogContent = () => {
     console.error('Blog query error:', error)
     return <div>Error loading blogs</div>
   }
-  console.log("============");
-  console.log(blogs);
 
   return (
     <div id='blog'>

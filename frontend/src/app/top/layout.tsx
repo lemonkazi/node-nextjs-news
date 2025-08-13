@@ -17,38 +17,25 @@ export default function RootLayout({
 }) {
   return (
     <>
-        {/* <div className={styles.App}>
-            <header className={styles['App-header']}>
-                <img src={'./logo.svg'} className={styles['App-logo']} alt="logo" />
-                <h1 className={styles['App-title']}>Welcome to Next.js</h1>
-            </header>
-            <p className={styles['App-intro']}>{apiResponse}</p>
-        </div> */}
-        <link
-            rel='preload'
-            fetchPriority='high'
-            as='image'
-            href='/images/top/top-banner-compressed.webp'
-            type='image/webp'
-        />
-        <link
-            rel='preload'
-            fetchPriority='high'
-            as='image'
-            href='/images/top/top-banner-sp-compressed.webp'
-            type='image/webp'
-        />
-        <div>
-          {children}
-            {/* <QueryClientProvider client={queryClient}>
-                
-            </QueryClientProvider> */}
-        </div>
-      {/* <div>
-        <NavbarComponent />
+      <link
+        rel='preload'
+        fetchPriority='high'
+        as='image'
+        href='/images/top/top-banner-compressed.webp'
+        type='image/webp'
+      />
+      <link
+        rel='preload'
+        fetchPriority='high'
+        as='image'
+        href='/images/top/top-banner-sp-compressed.webp'
+        type='image/webp'
+      />
+      <div>
+        {/* <NavbarComponent /> */}
         {children}
-        <Footer />
-      </div> */}
+        {/* <Footer /> */}
+      </div>
     </>
   )
 }
