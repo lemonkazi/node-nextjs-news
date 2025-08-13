@@ -8,11 +8,6 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 // Packages
-// @ts-ignore
-import { Splide, SplideSlide, SplideTrack } from '@splidejs/react-splide'
-
-// Styles
-import '@splidejs/react-splide/css'
 
 // Images
 import nextImage from '/public/images/top/arrow-next.svg'
