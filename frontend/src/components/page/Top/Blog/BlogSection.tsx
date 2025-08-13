@@ -30,16 +30,7 @@ const BlogSection = (props: any) => {
 
   return (
     <React.Fragment>
-      <div className='text-center'>
-        <h1 className='text-dark letter font-roboto text-3xl font-bold not-italic tracking-[3.2px]'>
-          BLOG
-        </h1>
-      </div>
-      <div
-        className={`${css.slider} md:px-auto px-auto relative mx-auto mb-[52px] mt-9 max-w-[1080px] py-0 pl-4 md:mb-10 lg:pl-0`}
-      >
-        <Blog blogs={blogsData} />
-      </div>
+      <Blog blogs={blogsData} />
     </React.Fragment>
   )
 }

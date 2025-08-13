@@ -11,11 +11,11 @@ const Top = () => {
     setIsBlogLayoutView(true)
   }, [])
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <div className={isBlogLayoutView ? 'block' : 'hidden'}>
         <BlogLayoutComponent />
       </div>
-    </main>
+    </div>
   )
 }
 

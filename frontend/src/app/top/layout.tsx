@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 // const NavbarComponent = dynamic(
 //   () => import('@/components/ui/Navbar/NavbarServer'),
 // )
-//const Footer = dynamic(() => import('@/components/ui/Footer/Footer'))
+const Footer = dynamic(() => import('@/components/ui/Footer/Footer'))
 
 const queryClient = new QueryClient()
 
@@ -31,14 +31,15 @@ export default function RootLayout({
         href='/images/top/top-banner-sp-compressed.webp'
         type='image/webp'
       />
-      <div>
+      <div className='flex min-h-screen flex-col'>
         {/* <NavbarComponent /> */}
-        {children}
-        {/* <Footer /> */}
+        <main className='flex-grow'>{children}</main>
+        <Footer />
       </div>
     </>
   )
 }
+
 
 
 
