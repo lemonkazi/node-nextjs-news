@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 'use client'
-
+import Link from 'next/link'
+/* eslint-disable @next/next/no-img-element */
 // React / Next Components or Hooks
 // import { Skeleton } from '@/components/ui/shadcn'
 import type { Blog } from '@/models/Top/blog'
@@ -45,7 +45,10 @@ const Blog = (props: any) => {
     <>
       {(blogs ? blogs.length > 0 : false) &&
         blogs.map((post: any, index: number) => (
-          <article className='transform overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg'>
+          <article
+            key={index}
+            className='transform overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg'
+          >
             {/* <img
               src={post.image}
               alt={post.title.rendered}
@@ -58,12 +61,12 @@ const Blog = (props: any) => {
               <p className='mb-4 line-clamp-3 text-sm text-gray-600'>
                 {post.content.replace(/<[^>]+>/g, '')}
               </p>
-              <a
+              <Link
                 href={`/blog/${post.id}`}
                 className='font-medium text-blue-600 hover:underline'
               >
                 Read more →
-              </a>
+              </Link>
             </div>
           </article>
         ))}
